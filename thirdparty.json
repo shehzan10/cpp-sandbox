@@ -1,0 +1,13 @@
+[
+    {
+        "name": "GLM",
+        "url": "https://www.github.com/g-truc/glm",
+        "license": "MIT"
+    },
+    {
+        "name": "nlohmann/json",
+        "url": "https://github.com/nlohmann/json",
+        "license": "MIT"
+    }
+]
+
