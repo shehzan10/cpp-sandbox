@@ -6,5 +6,5 @@ PROJECT(ThirdParty)
 SET(GLM_INCLUDE_DIR "${ROOT_THIRDPARTY_DIR}/glm" PARENT_SCOPE)
 
 # nlohmann/json (Header Only)
-SET(NLOHMANN_JSON_INCLUDE_DIR "${ROOT_THIRDPARTY_DIR}/nlohmann-json/src" PARENT_SCOPE)
+SET(NLOHMANN_JSON_INCLUDE_DIR "${ROOT_THIRDPARTY_DIR}/nlohmann-json/single_include/nlohmann" PARENT_SCOPE)
 
