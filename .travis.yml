@@ -21,6 +21,7 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX_FOR_BUILD=g++-6 ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CC=gcc-6 ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CC_FOR_BUILD=gcc-6 ; fi
+  - set
 
 script:
   - mkdir build && cd build
