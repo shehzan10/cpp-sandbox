@@ -3,12 +3,24 @@ matrix:
     - os: linux
       dist: trusty
       language: cpp
+      addons:
+        apt:
+          sources:
+              - ubuntu-toolchain-r-test
+          packages:
+            - gcc-6
+            - g++-6
     - os: windows
       filter_secrets: false
       language: cpp
 
 before_install:
   - git submodule update --init --recursive
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export TRAVIS_COMPILER=g++-6 ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX=g++-6 ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX_FOR_BUILD=g++-6 ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CC=gcc-6 ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CC_FOR_BUILD=gcc-6 ; fi
 
 script:
   - mkdir build && cd build
