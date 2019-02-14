@@ -16,7 +16,8 @@ matrix:
 
 before_install:
   - echo $TRAVIS_BUILD_DIR
-  - subst d: $TRAVIS_BUILD_DIR
+  - |
+    subst d: $TRAVIS_BUILD_DIR
   - cd /d
   - git submodule update --init --recursive
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export TRAVIS_COMPILER=g++-6 ; fi
