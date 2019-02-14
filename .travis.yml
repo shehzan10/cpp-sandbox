@@ -1,20 +1,23 @@
 matrix:
   include:
-    - os: linux
-      dist: trusty
-      language: cpp
-      addons:
-        apt:
-          sources:
-              - ubuntu-toolchain-r-test
-          packages:
-            - gcc-6
-            - g++-6
+    # - os: linux
+    #   dist: trusty
+    #   language: cpp
+    #   addons:
+    #     apt:
+    #       sources:
+    #           - ubuntu-toolchain-r-test
+    #       packages:
+    #         - gcc-6
+    #         - g++-6
     - os: windows
       filter_secrets: false
       language: cpp
 
 before_install:
+  - echo $TRAVIS_BUILD_DIR
+  - subst d: $TRAVIS_BUILD_DIR
+  - cd /d
   - git submodule update --init --recursive
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export TRAVIS_COMPILER=g++-6 ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX=g++-6 ; fi
@@ -24,6 +27,7 @@ before_install:
 
 script:
   - mkdir build && cd build
+  - echo $PWD
 
   - echo 'cmake' && echo -en 'travis_fold:start:script.cmake\\r'
   - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then cmake .. -G "Visual Studio 15 2017 Win64" ; else cmake .. ; fi
