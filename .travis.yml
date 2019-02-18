@@ -28,4 +28,4 @@ before_install:
 
 script:
   - ls
-  - sh ./travis_${TRAVIS_OS_NAME}.sh
+  - ./travis_${TRAVIS_OS_NAME}.sh
