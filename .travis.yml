@@ -10,9 +10,37 @@ matrix:
           packages:
             - gcc-6
             - g++-6
+      script:
+          - mkdir build && cd build
+
+          - echo 'cmake' && echo -en 'travis_fold:start:script.cmake\\r'
+          - cmake ..
+          - echo -en 'travis_fold:end:script.cmake\\r'
+
+          - echo 'build' && echo -en 'travis_fold:start:script.build\\r'
+          - make -j2
+          - echo -en 'travis_fold:end:script.build\\r'
+
+          - echo 'run' && echo -en 'travis_fold:start:script.run\\r'
+          - ./bin/cpp-sandbox
+          - echo -en 'travis_fold:end:script.run\\r'
     - os: windows
       filter_secrets: false
       language: cpp
+      script:
+          - mkdir build && cd build
+
+          - echo 'cmake' && echo -en 'travis_fold:start:script.cmake\\r'
+          - cmake .. -G "Visual Studio 15 2017 Win64"
+          - echo -en 'travis_fold:end:script.cmake\\r'
+
+          - echo 'build' && echo -en 'travis_fold:start:script.build\\r'
+          - cmake --build . --target ALL_BUILD --config Release
+          - echo -en 'travis_fold:end:script.build\\r'
+
+          - echo 'run' && echo -en 'travis_fold:start:script.run\\r'
+          - ./bin/Release/cpp-sandbox
+          - echo -en 'travis_fold:end:script.run\\r'
 
 before_install:
   - git submodule update --init --recursive
@@ -21,18 +49,3 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX_FOR_BUILD=g++-6 ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CC=gcc-6 ; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CC_FOR_BUILD=gcc-6 ; fi
-
-script:
-  - mkdir build && cd build
-
-  - echo 'cmake' && echo -en 'travis_fold:start:script.cmake\\r'
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then cmake .. -G "Visual Studio 15 2017 Win64" ; else cmake .. ; fi
-  - echo -en 'travis_fold:end:script.cmake\\r'
-
-  - echo 'build' && echo -en 'travis_fold:start:script.build\\r'
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then cmake --build . --target ALL_BUILD --config Release ; else make -j2 ; fi
-  - echo -en 'travis_fold:end:script.build\\r'
-
-  - echo 'run' && echo -en 'travis_fold:start:script.run\\r'
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then ./bin/Release/cpp-sandbox ; else ./bin/cpp-sandbox ; fi
-  - echo -en 'travis_fold:end:script.run\\r'
