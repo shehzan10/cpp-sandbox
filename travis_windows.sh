@@ -2,7 +2,7 @@ set -e
 
 echo_and_run () {
     echo "\$ $@"
-    $@
+    "$@"
 }
 
 echo_and_run mkdir build
