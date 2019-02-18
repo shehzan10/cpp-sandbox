@@ -1,14 +1,15 @@
 set -e
 
 echo_and_run () {
-    echo '\$ $@'
+    echo "\$ $@"
     $@
 }
 
-echo_and_run mkdir build && cd build
+echo_and_run mkdir build
+echo_and_run cd build
 
 travis_fold start "script.cmake" && echo "cmake"
-echo_and_run cmake .. -G "Visual Studio 15 2017 Win64"
+echo_and_run cmake .. -G 'Visual Studio 15 2017 Win64'
 travis_fold end "script.cmake"
 
 travis_fold start "script.build" && echo "build"
