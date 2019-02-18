@@ -27,4 +27,4 @@ before_install:
   - export -f travis_time_finish
 
 script:
-  - sh ./travis.sh
+  - sh ./travis_${TRAVIS_OS_NAME}.sh
