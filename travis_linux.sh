@@ -1,5 +1,6 @@
 set -e
 
+cat ./echo_and_run.sh
 source ./echo_and_run.sh
 
 echo_and_run mkdir build
