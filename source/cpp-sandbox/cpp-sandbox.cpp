@@ -8,12 +8,24 @@
 
 int main(int argc, char* argv[])
 {
+    if (argc < 2) {
+        std::cout << "Usage: cpp-sandbox /path/to/file" << std::endl;
+        return 0;
+    }
+
     std::string inputFile(argv[1]);
     std::string outputFile = inputFile;
-    outputFile.replace(inputFile.size() - 4, 4, "-Fixed.gml");
+    outputFile.replace(outputFile.size() - 4, 4, "-Fixed.gml");
+
+    std::cout << inputFile << " => " << outputFile << std::endl;
 
     std::ifstream ifs(inputFile, std::fstream::in);
     std::ofstream ofs(outputFile, std::fstream::out);
+
+    if (!ifs.good() || !ofs.good()) {
+        std::cout << "Error opening files" << std::endl;
+        return 1;
+    }
 
     size_t lineNo = 1;
     std::regex bridgeExpression("^\\s*</?brid:Bridge.+");
